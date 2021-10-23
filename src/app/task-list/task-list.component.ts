@@ -17,17 +17,11 @@ tasks!: Task[];
 
 
     constructor() {
-        this.tasks = [
-            {isDone: false, text: 'Go to shop', },
-            {isDone: true, text: 'Watch movie', },
-            {isDone: false, text: 'Have some fun', },
-        ]
-        // this.tasks = JSON.parse(localStorage.getItem('taskBase') || '[]') ; // is it a good decision ? 
-
+        this.tasks = JSON.parse(localStorage.getItem('taskBase') || '[]') ; // is it a good decision ? 
     }
 
     ngAfterContentChecked() {
-        // console.log('change')
+        localStorage.setItem('taskBase', JSON.stringify(this.tasks))
     }
 
     removeTsk(i: number) {

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Task } from '../model/Task.interface';
 
 @Component({
@@ -6,7 +6,8 @@ import { Task } from '../model/Task.interface';
   template: `
     <div class="task">
       <input type="checkbox" [(ngModel)]="tsk.isDone">
-      <span [ngClass]="{'checked': tsk.isDone}" >{{tsk.text}}</span>
+      <span *ngIf="!edit" [ngClass]="{'checked': tsk.isDone}" (click)="onSpanClick()">{{tsk.text}}</span>
+      <input *ngIf="edit" type="text" [value]="tsk.text" (blur)="onInputBlur()" #taskInputTxt>
       <button (click)="onDelete()" >X</button>
     </div>
   `,
@@ -22,13 +23,25 @@ import { Task } from '../model/Task.interface';
 export class TaskComponent {
 @Input() tsk!: Task;
 @Output() removeMe = new EventEmitter();
+@ViewChild('taskInputTxt') taskInputTxt: any;
+edit: boolean = false;
 
   constructor() { 
 
   }
 
   onDelete() {
-    this.removeMe.emit;
+    this.removeMe.emit();
+  }
+
+  onSpanClick() {
+    this.edit = true;
+    setTimeout(() => this.taskInputTxt.nativeElement.focus());
+  }
+
+  onInputBlur() {
+    this.tsk.text = this.taskInputTxt.nativeElement.value;
+    this.edit = false;
   }
 
 }
