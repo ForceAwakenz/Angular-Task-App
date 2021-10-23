@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { Task } from '../model/Task.interface';
 
 @Component({
@@ -23,7 +23,7 @@ import { Task } from '../model/Task.interface';
 export class TaskComponent {
 @Input() tsk!: Task;
 @Output() removeMe = new EventEmitter();
-@ViewChild('taskInputTxt') taskInputTxt: any;
+@ViewChild('taskInputTxt') taskInputTxt!: ElementRef<HTMLInputElement>;
 edit: boolean = false;
 
   constructor() { 
