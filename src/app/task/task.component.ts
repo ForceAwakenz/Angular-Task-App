@@ -1,14 +1,13 @@
-import { AfterViewChecked, Component, DoCheck, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../model/Task.interface';
 
 @Component({
   selector: 'app-task',
   template: `
     <div class="task">
-      <!-- <input type="checkbox" (change)="tsk.isDone = !tsk.isDone" [checked]="tsk.isDone"> -->
       <input type="checkbox" [(ngModel)]="tsk.isDone">
       <span [ngClass]="{'checked': tsk.isDone}" >{{tsk.text}}</span>
-      <button>X</button>
+      <button (click)="onDelete()" >X</button>
     </div>
   `,
   styles: [
@@ -20,20 +19,16 @@ import { Task } from '../model/Task.interface';
     `
   ]
 })
-export class TaskComponent implements OnInit, AfterViewChecked {
+export class TaskComponent {
 @Input() tsk!: Task;
+@Output() removeMe = new EventEmitter();
 
   constructor() { 
 
   }
 
-  ngOnInit(): void {
+  onDelete() {
+    this.removeMe.emit;
   }
-
-  ngAfterViewChecked() {
-    console.log('changes')
-  }
-
-
 
 }
