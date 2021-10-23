@@ -1,5 +1,7 @@
 import { AfterContentChecked, Component } from "@angular/core";
 import { Task } from "../model/Task.interface";
+import { TaskStorageService } from "../task-storage.service";
+
 
 @Component({
     selector: 'app-task-list',
@@ -13,11 +15,11 @@ import { Task } from "../model/Task.interface";
 })
 
 export class TaskListComponent implements AfterContentChecked {
-tasks!: Task[];
+tasks: Task[];
 
 
-    constructor() {
-        this.tasks = JSON.parse(localStorage.getItem('taskBase') || '[]') ; // is it a good decision ? 
+    constructor(private storageService: TaskStorageService) {
+        this.tasks = storageService.tasks;
     }
 
     ngAfterContentChecked() {

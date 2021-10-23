@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskComponent } from './task/task.component';
 import { AddTaskComponent } from './add-task/add-task.component';
+import { TaskStorageService } from './task-storage.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [TaskStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
